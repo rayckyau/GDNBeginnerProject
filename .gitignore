@@ -60,3 +60,6 @@ crashlytics-build.properties
 
 # Ignore idea folder
 .idea
+
+# Ignore MacOS temp folders
+.DS_Store
