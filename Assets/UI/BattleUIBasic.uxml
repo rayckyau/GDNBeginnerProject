@@ -1,0 +1,24 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:VisualElement name="TurnOrderRecap" style="height: 50%; width: 25%; right: auto; flex-direction: column; left: 70%; overflow: visible; flex-wrap: nowrap; align-items: stretch; justify-content: flex-start; position: absolute;">
+        <ui:VisualElement name="LabelContainer">
+            <ui:Label text="Turn Order Recap" display-tooltip-when-elided="true" />
+        </ui:VisualElement>
+        <ui:ScrollView name="TurnOrderRecapScrollView" style="left: auto;">
+            <ui:VisualElement style="background-color: rgb(205, 107, 229); background-image: none; height: 15px; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; margin-left: 7px; margin-right: 7px; margin-top: 7px; margin-bottom: 7px;" />
+            <ui:VisualElement style="background-color: rgb(205, 107, 229); background-image: none; height: 15px; padding-left: 0; padding-right: 0; padding-top: 0; padding-bottom: 0; margin-left: 7px; margin-right: 7px; margin-top: 7px; margin-bottom: 7px;" />
+        </ui:ScrollView>
+    </ui:VisualElement>
+    <ui:VisualElement name="EnemyStatus" style="position: absolute; background-color: rgb(250, 131, 203); bottom: auto; right: auto; left: auto; top: 0; width: 40%; height: 20%;">
+        <ui:VisualElement style="height: 100%; width: 100%;">
+            <ui:Label text="Enemy Status&#10;" display-tooltip-when-elided="true" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:VisualElement name="PlayerStatus" style="width: 40%; height: 20%; position: absolute; top: 80%;">
+        <ui:VisualElement style="height: 100%; width: 100%; background-color: rgb(111, 180, 138);">
+            <ui:Label text="Player Status&#10;" display-tooltip-when-elided="true" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:VisualElement name="PlayerActionContainer" style="background-color: rgb(153, 242, 255); height: 30%; width: 50%; left: 50%; top: 69%; position: absolute;">
+        <ui:Label text="Player Action Container" display-tooltip-when-elided="true" />
+    </ui:VisualElement>
+</ui:UXML>
