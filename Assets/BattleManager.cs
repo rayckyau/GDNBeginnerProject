@@ -5,9 +5,9 @@ public class BattleManager : ICharacterBattleManager
     private Character[] _characters;
     private Character _character;
 
-    public BattleManager(Character[] _characters, BattleEnvironment environment)
+    public BattleManager(Character[] characters, BattleEnvironment environment)
     {
-        this._characters = _characters;
+        this._characters = characters;
     }
 
     public void AttackOpponent(Attack attack)
