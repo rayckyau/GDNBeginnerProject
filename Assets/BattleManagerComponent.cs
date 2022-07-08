@@ -7,6 +7,6 @@ public class BattleManagerComponent : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        _battleManager = new BattleManager(null, null);
+        _battleManager = new BattleManager(BattleSceneInitData.Characters, BattleSceneInitData.Environment);
     }
 }

@@ -1,11 +1,5 @@
 using System;
 
-public interface ICharacterBattleManager
-{
-    public void DoActionToOtherCharacter(Action<Character> action);
-    public void AttemptFlee();
-}
-
 public class BattleManager : ICharacterBattleManager
 {
     private Character[] characters;
