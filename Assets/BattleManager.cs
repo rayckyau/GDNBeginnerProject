@@ -2,16 +2,17 @@ using System;
 
 public class BattleManager : ICharacterBattleManager
 {
-    private Character[] characters;
+    private Character[] _characters;
+    private Character _character;
 
     public BattleManager(Character[] _characters, BattleEnvironment environment)
     {
-        characters = _characters;
+        this._characters = _characters;
     }
 
-    public void DoActionToOtherCharacter(Action<Character> action)
+    public void AttackOpponent(Attack attack)
     {
-        
+        _character.ApplyAttack(attack);
     }
 
     public void AttemptFlee()
