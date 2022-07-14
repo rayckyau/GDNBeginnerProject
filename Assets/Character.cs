@@ -1,15 +1,9 @@
-public class Character
+using System.Collections.Generic;
+
+public abstract class Character
 {
-    //private Critter[] _critters
-    //private Critter _currentCritter;
+    List<Critter> _critters;
+    Critter _currentCritter;
 
-    public void DoTurn(ICharacterBattleManager bm)
-    {
-        
-    }
-
-    public void ApplyAttack(Attack attack)
-    {
-        //_currentCritter.OnHurt(attack);
-    }
+    public abstract void DoTurn(ICharacterBattleManager bm);
 }
