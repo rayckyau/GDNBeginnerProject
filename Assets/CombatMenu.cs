@@ -3,6 +3,12 @@ using UnityEngine.Events;
 
 public abstract class CombatMenu
 {
+    protected readonly BattleUIController uiController;
+
+    public CombatMenu(BattleUIController uiCont)
+    {
+        uiController = uiCont;
+    }
     public string[] menuNames;
 
     public UnityAction Option1OnClick;

@@ -5,10 +5,8 @@ using UnityEngine.UI;
 
 public class MainCombatMenu : CombatMenu
 {
-    private BattleUIController uiController;
-    public MainCombatMenu(BattleUIController uiCont)
+    public MainCombatMenu(BattleUIController uiCont) : base(uiCont)
     {
-        uiController = uiCont;
         menuNames = new string[]{"Attack", "Defense", "Item", "Stats"};
 
         Option1OnClick = () =>

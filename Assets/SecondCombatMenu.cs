@@ -5,10 +5,8 @@ using UnityEngine.UI;
 
 public class SecondCombatMenu : CombatMenu
 {
-    private BattleUIController uiController;
-    public SecondCombatMenu(BattleUIController uiCont)
+    public SecondCombatMenu(BattleUIController uiCont) : base(uiCont)
     {
-        uiController = uiCont;
         menuNames = new string[]{"Test1", null, null, "Back"};
 
         Option1OnClick = () =>
