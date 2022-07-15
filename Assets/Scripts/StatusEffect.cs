@@ -15,20 +15,20 @@ public class StatusEffect
     public static bool RemoveCheck(StatusEffect effect)
     {
         if (--effect.Duration <= 0) {
-            effect.OnEffectEnd();
+            effect.OnEnd();
             return true;
         }
         else { return false; }
     }
     
-    public virtual void AffectOnTurn() { }
-    public virtual Attack AffectOnHit(Attack atk) { return atk; }
-    public virtual Attack AffectOnHurt(Attack atk) { return atk; }
+    public virtual void OnTurn() { }
+    public virtual Attack OnHit(Attack atk) { return atk; }
+    public virtual Attack OnHurt(Attack atk) { return atk; }
 
-    public virtual void OnEffectStart() { CombatLog.Instance.Log(Target.Name + " gained " + Name); }
-    public virtual void OnEffectEnd() { CombatLog.Instance.Log(Name + " has worn off."); }
+    public virtual void OnStart() { CombatLog.Instance.Log(Target.Name + " gained " + Name); }
+    public virtual void OnEnd() { CombatLog.Instance.Log(Name + " has worn off."); }
 
-    public virtual int MaxDuration() { return int.MaxValue; }
+    public virtual int MaxDuration => int.MaxValue;
     public override string ToString() {
         return $"{Name} [ {Duration} ]";
     }

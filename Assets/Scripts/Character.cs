@@ -1,9 +1,13 @@
+using System;
 using System.Collections.Generic;
 
-public abstract class Character
+public class Character
 {
     List<Critter> _critters;
     Critter _currentCritter;
 
-    public abstract void DoTurn(ICharacterBattleManager bm);
+    public virtual void DoTurn(ICharacterBattleManager bm)
+    {
+        throw new NotImplementedException();
+    }
 }
