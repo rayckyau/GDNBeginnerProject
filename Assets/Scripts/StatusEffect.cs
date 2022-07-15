@@ -28,7 +28,7 @@ public class StatusEffect
     public virtual void OnEffectStart() { CombatLog.Instance.Log(Target.Name + " gained " + Name); }
     public virtual void OnEffectEnd() { CombatLog.Instance.Log(Name + " has worn off."); }
 
-    public virtual int MaxDuration() { return int.MaxValue; }
+    public virtual int MaxDuration => int.MaxValue;
     public override string ToString() {
         return $"{Name} [ {Duration} ]";
     }

@@ -23,9 +23,9 @@ public abstract class Critter
     public virtual List<UnityAction> Moveset { get; private set; }
 
     // CURRENT VALUES
-    public int Health { get; private set; }
-    public int Energy { get; private set; }
-    public int Speed { get; set; }
+    public int CurrentHealth { get; private set; }
+    public int CurrentEnergy { get; private set; }
+    public int CurrentSpeed { get; set; }
 
     public List<StatusEffect> statusEffects = new ();
 
@@ -43,30 +43,28 @@ public abstract class Critter
     }
 
     
-    public virtual void OnHurt(Attack receiving, bool applyEffects = true)
+    public virtual void OnHurt(Attack receiving)
     {
-        if (applyEffects)
-        {
-            statusEffects.ForEach(eff => eff.AffectOnHurt(receiving));
-        }
+        statusEffects.ForEach(eff => eff.AffectOnHurt(receiving));
+        OnHurtNoEffects(receiving);
+    }
 
-        Health -= receiving.damageAmount;
+    public virtual void OnHurtNoEffects(Attack receiving)
+    {
+        CurrentHealth -= receiving.damageAmount;
     }
     
-    public virtual void OnHit(Attack sending, bool applyEffects = true)
+    public virtual void OnHit(Attack sending)
     {
-        if (applyEffects)
-        {
-            statusEffects.ForEach(eff => eff.AffectOnHit(sending));
-        }
+        statusEffects.ForEach(eff => eff.AffectOnHit(sending));
     }
 
     public virtual void OnHeal(Heal heal)
     {
-        Health += heal.healAmount;
-        if (Health > BaseHealth)
+        CurrentHealth += heal.healAmount;
+        if (CurrentHealth > BaseHealth)
         {
-            Health = BaseHealth;
+            CurrentHealth = BaseHealth;
         }
     }
 
@@ -84,7 +82,7 @@ public abstract class Critter
                 if (effect.GetType() == newEffect.GetType()) {
 
                     //Give the effect either the sum of durations or the max duration, whichever is smaller.
-                    effect.Duration = Mathf.Min(effect.Duration + newEffect.Duration, newEffect.MaxDuration());
+                    effect.Duration = Mathf.Min(effect.Duration + newEffect.Duration, newEffect.MaxDuration);
 
                     return false;
                 }
