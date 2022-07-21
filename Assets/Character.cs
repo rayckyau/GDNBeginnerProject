@@ -1,15 +1,13 @@
+using System;
+using System.Collections.Generic;
+
 public class Character
 {
-    //private Critter[] _critters
-    //private Critter _currentCritter;
+    List<Critter> _critters;
+    Critter _currentCritter;
 
-    public void DoTurn(ICharacterBattleManager bm)
+    public virtual void DoTurn(ICharacterBattleManager bm)
     {
-        
-    }
-
-    public void ApplyAttack(Attack attack)
-    {
-        //_currentCritter.OnHurt(attack);
+        throw new NotImplementedException();
     }
 }
