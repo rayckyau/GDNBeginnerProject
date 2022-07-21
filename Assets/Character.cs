@@ -6,7 +6,7 @@ public class Character
     List<Critter> _critters;
     Critter _currentCritter;
 
-    public void DoTurn(ICharacterBattleManager bm)
+    public virtual void DoTurn(ICharacterBattleManager bm)
     {
         throw new NotImplementedException();
     }

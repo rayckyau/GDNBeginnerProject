@@ -35,7 +35,7 @@ public abstract class Critter
 
     public virtual void OnTurn()
     {
-        statusEffects.ForEach(e => e.AffectOnTurn());
+        statusEffects.ForEach(e => e.OnTurn());
         // Remove all effects whose timer has reached 0.
         statusEffects.RemoveAll(StatusEffect.RemoveCheck);
         
@@ -43,9 +43,15 @@ public abstract class Critter
     }
 
     
+    public virtual void OnHit(Attack sending)
+    {
+        statusEffects.ForEach(eff => eff.OnHit(sending));
+    }
+    
+    
     public virtual void OnHurt(Attack receiving)
     {
-        statusEffects.ForEach(eff => eff.AffectOnHurt(receiving));
+        statusEffects.ForEach(eff => eff.OnHurt(receiving));
         OnHurtNoEffects(receiving);
     }
 
@@ -53,12 +59,8 @@ public abstract class Critter
     {
         CurrentHealth -= receiving.damageAmount;
     }
-    
-    public virtual void OnHit(Attack sending)
-    {
-        statusEffects.ForEach(eff => eff.AffectOnHit(sending));
-    }
 
+    // TODO: We'll likely want OnHitLand and OnHitMiss events for things like lifesteal.
     public virtual void OnHeal(Heal heal)
     {
         CurrentHealth += heal.healAmount;
@@ -68,6 +70,7 @@ public abstract class Critter
         }
     }
 
+    
     #region Effects
 
     //Return true if the effect wasn't already in the list.
@@ -91,7 +94,7 @@ public abstract class Critter
 
         //If the effect wasn't found or it can stack, add it to the list.
         statusEffects.Add(newEffect);
-        newEffect.OnEffectStart();
+        newEffect.OnStart();
         return true;
     }
     
