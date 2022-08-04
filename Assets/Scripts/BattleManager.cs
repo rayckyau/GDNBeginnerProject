@@ -7,10 +7,10 @@ public class BattleManager : ICritterBattleManager, ICharacterBattleManager
 
     public BattleManager(Character[] characters, BattleEnvironment environment)
     {
-        _characters = characters;
+        this._characters = characters;
     }
-    
-    public void AttackCharacter(Attack attack)
+
+    public void AttackOpponent(Attack attack)
     {
         
     }
