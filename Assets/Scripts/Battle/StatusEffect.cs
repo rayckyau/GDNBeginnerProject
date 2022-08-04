@@ -28,8 +28,8 @@ public class StatusEffect
     public virtual Attack OnHurt(Attack atk) { return atk; }
 
     
-    public virtual void OnStart() { CombatLog.Instance.Log(Target.Name + " gained " + Name); }
-    public virtual void OnEnd() { CombatLog.Instance.Log(Name + " has worn off."); }
+    public virtual void OnStart() {  }
+    public virtual void OnEnd() {  }
 
     public override string ToString() {
         return $"{Name} [ {Duration} ]";
