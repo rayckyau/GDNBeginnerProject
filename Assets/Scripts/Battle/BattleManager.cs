@@ -10,12 +10,12 @@ public class BattleManager : ICritterBattleManager, ICharacterBattleManager
         _characters = characters;
     }
     
-    public void AttackCharacter(Attack attack)
+    public virtual void AttackOpponent(Attack attack)
     {
         
     }
 
-    public void AttemptFlee()
+    public virtual void AttemptFlee()
     {
         
     }
