@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class BattleManagerComponent : MonoBehaviour
@@ -7,6 +8,6 @@ public class BattleManagerComponent : MonoBehaviour
     // Start is called before the first frame update
     private void Start()
     {
-        _battleManager = new BattleManager(BattleSceneInitData.Characters, BattleSceneInitData.Environment);
+        _battleManager = new BattleManager(this, BattleSceneInitData.Characters, BattleSceneInitData.Environment);
     }
 }
