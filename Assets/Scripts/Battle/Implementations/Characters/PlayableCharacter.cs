@@ -9,10 +9,8 @@ namespace Battle.Implementations.Characters
         bool _hasChosen;
         int _choice;
 
-        public override void Act(ICharacterBattleManager bm)
+        public override void DoAct(ICharacterBattleManager bm)
         {
-            base.OnAct();
-            
             _hasChosen = false;
             bm.Component.StartCoroutine(new WaitUntil(WaitForUser));
             

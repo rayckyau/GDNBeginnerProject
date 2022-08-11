@@ -7,9 +7,9 @@ namespace Battle.Implementations.Characters
     public class RandomChoiceCharacter : Character
     {
         // Chooses a random move.
-        public override void Act(ICharacterBattleManager bm)
+        public override void DoAct(ICharacterBattleManager bm)
         {
-            base.Act(bm);
+            base.DoAct(bm);
 
             bm.Component.StartCoroutine(new WaitForSecondsRealtime(1f));
             

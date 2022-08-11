@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,10 +9,12 @@ public class Character
     protected List<Critter> _critters;
     protected Critter _currentCritter;
     
-    public virtual void Act(ICharacterBattleManager bm)
+    public void Act(ICharacterBattleManager bm)
     {
-        OnAct();
+        OnBeforeAct(bm);
+        DoAct(bm);
     }
-
-    protected virtual void OnAct() { }
+    
+    public virtual void DoAct(ICharacterBattleManager bm) { }
+    protected virtual void OnBeforeAct(ICharacterBattleManager bm) { }
 }
