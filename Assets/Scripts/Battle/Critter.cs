@@ -17,10 +17,12 @@ public abstract class Critter
     public int BaseEnergy { get; }
     public int BaseSpeed { get; }
 
+    public Character Owner { get; private set; }
+
     /// <summary>
     /// This is the list of actions your critter can perform in combat.
     /// </summary>
-    public virtual List<UnityAction> Moveset { get; private set; }
+    public virtual List<UnityAction<ICritterBattleManager>> Moveset { get; private set; }
 
     // CURRENT VALUES
     public int CurrentHealth { get; private set; }
@@ -31,7 +33,15 @@ public abstract class Critter
 
     
     // EVENTS
-    public abstract void Act(ICritterBattleManager bm);
+    public void Enact(int actionIndex, ICritterBattleManager bm)
+    {
+        if (actionIndex < 0 || actionIndex >= Moveset.Count)
+        {
+            Debug.LogWarning($"{Owner}.{Name}: Invalid action index.");
+            Moveset[0].Invoke(bm);
+        }
+        Moveset[actionIndex].Invoke(bm);
+    }
 
     public virtual void OnTurn()
     {
@@ -41,7 +51,7 @@ public abstract class Critter
         
         // Display / update effect list.
     }
-
+    
     
     public virtual void OnHit(Attack sending)
     {

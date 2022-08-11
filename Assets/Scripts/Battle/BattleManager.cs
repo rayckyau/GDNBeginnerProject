@@ -1,22 +1,32 @@
 using System;
 
-public class BattleManager : ICritterBattleManager, ICharacterBattleManager
+public class BattleManager :  ICharacterBattleManager, ICritterBattleManager
 {
+    // Should we couple the component and battle manager?
+    public BattleManagerComponent Component { get; }
+    
     private Character[] _characters;
     private Character _currentCharacter;
 
-    public BattleManager(Character[] characters, BattleEnvironment environment)
+    public BattleManager(BattleManagerComponent component, Character[] characters, BattleEnvironment environment)
     {
         _characters = characters;
+        Component = component;
+    }
+
+    public void OnTurn()
+    {
+        _currentCharacter.Act(this);
     }
     
-    public virtual void AttackOpponent(Attack attack)
+    public void AttackOpponent(Attack attack)
     {
         
     }
 
-    public virtual void AttemptFlee()
+    public void AttemptFlee()
     {
         
     }
+
 }

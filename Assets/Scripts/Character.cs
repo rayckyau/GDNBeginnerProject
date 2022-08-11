@@ -1,13 +1,20 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 public class Character
 {
-    List<Critter> _critters;
-    Critter _currentCritter;
-
-    public virtual void DoTurn(ICharacterBattleManager bm)
+    public string Name { get; private set; }
+    
+    protected List<Critter> _critters;
+    protected Critter _currentCritter;
+    
+    public void Act(ICharacterBattleManager bm)
     {
-        throw new NotImplementedException();
+        OnBeforeAct(bm);
+        DoAct(bm);
     }
+    
+    public virtual void DoAct(ICharacterBattleManager bm) { }
+    protected virtual void OnBeforeAct(ICharacterBattleManager bm) { }
 }

@@ -10,8 +10,8 @@ public class StatusEffect
     
     public StatusEffect(Critter target, int duration)
     {
-        this.Target = target;
-        this.Duration = duration;
+        Target = target;
+        Duration = duration;
     }
 
     public static bool RemoveCheck(StatusEffect effect)
