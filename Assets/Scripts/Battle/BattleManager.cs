@@ -16,7 +16,7 @@ public class BattleManager :  ICharacterBattleManager, ICritterBattleManager
 
     public void OnTurn()
     {
-        _currentCharacter.DoAct(this);
+        _currentCharacter.Act(this);
     }
     
     public void AttackOpponent(Attack attack)
