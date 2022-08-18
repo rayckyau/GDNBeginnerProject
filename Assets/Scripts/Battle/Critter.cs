@@ -16,52 +16,66 @@ public abstract class Critter
     public int BaseHealth { get; }
     public int BaseEnergy { get; }
     public int BaseSpeed { get; }
+    
+    public int BaseMana { get; }
 
     public Character Owner { get; private set; }
 
     /// <summary>
     /// This is the list of actions your critter can perform in combat.
     /// </summary>
-    public virtual List<UnityAction<ICritterBattleManager>> Moveset { get; private set; }
+    public virtual List<CombatMove> Moveset { get; private set; }
 
     // CURRENT VALUES
     public int CurrentHealth { get; private set; }
-    public int CurrentEnergy { get; private set; }
-    public int CurrentSpeed { get; set; }
+    public int CurrentMana { get; private set; }
+    public int CurrentSpeed { get; private set; }
+    
 
     public List<StatusEffect> statusEffects = new ();
 
     
     // EVENTS
-    public void Enact(int actionIndex, ICritterBattleManager bm)
+    public void Enact(ICritterBattleManager bm, int actionIndex)
     {
         if (actionIndex < 0 || actionIndex >= Moveset.Count)
         {
             Debug.LogWarning($"{Owner}.{Name}: Invalid action index.");
             Moveset[0].Invoke(bm);
+            return;
         }
-        Moveset[actionIndex].Invoke(bm);
+
+        var targetMove = Moveset[actionIndex];
+        if(targetMove.ManaCost > CurrentMana)
+        {
+            // Do basic attack? Do nothing?
+            return;
+        }
+
+        CurrentMana -= targetMove.ManaCost;
+        targetMove.Action.Invoke(bm);
     }
 
-    public virtual void OnTurn()
+    
+    public virtual void OnTurn(ICritterBattleManager bm)
     {
-        statusEffects.ForEach(e => e.OnTurn());
+        statusEffects.ForEach(e => e.OnTurn(bm));
         // Remove all effects whose timer has reached 0.
-        statusEffects.RemoveAll(StatusEffect.RemoveCheck);
+        statusEffects.RemoveAll((effect) => StatusEffect.RemoveCheck(bm, effect));
         
         // Display / update effect list.
     }
     
     
-    public virtual void OnHit(Attack sending)
+    public virtual void OnHit(ICritterBattleManager bm, Attack sending)
     {
-        statusEffects.ForEach(eff => eff.OnHit(sending));
+        statusEffects.ForEach(eff => eff.OnHit(bm, sending));
     }
     
     
-    public virtual void OnHurt(Attack receiving)
+    public virtual void OnHurt(ICritterBattleManager bm, Attack receiving)
     {
-        statusEffects.ForEach(eff => eff.OnHurt(receiving));
+        statusEffects.ForEach(eff => eff.OnHurt(bm, receiving));
         OnHurtNoEffects(receiving);
     }
 
@@ -71,7 +85,7 @@ public abstract class Critter
     }
 
     // TODO: We'll likely want OnHitLand and OnHitMiss events for things like lifesteal.
-    public virtual void OnHeal(Heal heal)
+    public virtual void OnHeal(ICritterBattleManager bm, Heal heal)
     {
         CurrentHealth += heal.healAmount;
         if (CurrentHealth > BaseHealth)
@@ -84,7 +98,7 @@ public abstract class Critter
     #region Effects
 
     //Return true if the effect wasn't already in the list.
-    public bool AddEffect(StatusEffect newEffect) {
+    public bool AddEffect(ICritterBattleManager bm, StatusEffect newEffect) {
         if(!newEffect.Stackable) {
 
             //If the effect can't stack, check if it's already exists in the list.
@@ -104,12 +118,17 @@ public abstract class Critter
 
         //If the effect wasn't found or it can stack, add it to the list.
         statusEffects.Add(newEffect);
-        newEffect.OnStart();
+        newEffect.OnStart(bm);
         return true;
     }
     
-    public bool RemoveEffect(StatusEffect effect) {
-        return statusEffects.Remove(effect);
+    public bool RemoveEffect(ICritterBattleManager bm, StatusEffect effect) {
+        if(statusEffects.Remove(effect))
+        {
+            effect.OnEnd(bm);
+            return true;
+        }
+        return false;
     }
 
     #endregion

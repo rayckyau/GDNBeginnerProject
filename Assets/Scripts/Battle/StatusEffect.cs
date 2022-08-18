@@ -14,22 +14,22 @@ public class StatusEffect
         Duration = duration;
     }
 
-    public static bool RemoveCheck(StatusEffect effect)
+    public static bool RemoveCheck(ICritterBattleManager bm, StatusEffect effect)
     {
         if (--effect.Duration <= 0) {
-            effect.OnEnd();
+            effect.OnEnd(bm);
             return true;
         }
         else { return false; }
     }
     
-    public virtual void OnTurn() { }
-    public virtual Attack OnHit(Attack atk) { return atk; }
-    public virtual Attack OnHurt(Attack atk) { return atk; }
+    public virtual void OnTurn(ICritterBattleManager bm) { }
+    public virtual Attack OnHit(ICritterBattleManager bm, Attack atk) { return atk; }
+    public virtual Attack OnHurt(ICritterBattleManager bm, Attack atk) { return atk; }
 
     
-    public virtual void OnStart() {  }
-    public virtual void OnEnd() {  }
+    public virtual void OnStart(ICritterBattleManager bm) {  }
+    public virtual void OnEnd(ICritterBattleManager bm) {  }
 
     public override string ToString() {
         return $"{Name} [ {Duration} ]";

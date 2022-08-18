@@ -7,7 +7,7 @@ public class Character
     public string Name { get; private set; }
     
     protected List<Critter> _critters;
-    protected Critter _currentCritter;
+    internal Critter _currentCritter;
     
     public void Act(ICharacterBattleManager bm)
     {
